@@ -1,19 +1,17 @@
 ---
 layout: page
-title: About Me
-menu: about
-subtitle:   <h3>Download My CV</h3>
-            <a role="button" class="btn btn-primary hvr-grow-shadow" href="/assets/files/CV_Chuan_Dong_FR.pdf" target="_blanks">
-                <span class="flag-icon flag-icon-bl"></span> Français
-            </a>
-            <a role="button" class="btn btn-primary hvr-grow-shadow" href="/assets/files/CV_Chuan_Dong_FR.pdf" target="_blanks">
-                <span class="flag-icon flag-icon-gb"></span> English
-            </a>
-            <a role="button" class="btn btn-primary hvr-grow-shadow" href="/assets/files/CV_Chuan_Dong_FR.pdf" target="_blanks">
-                <span class="flag-icon flag-icon-cn"></span> 中文
-            </a>
-                            
-css: ['about.css', 'sidebar-popular-repo.css', '../../bower_components/flag-icon-css/css/flag-icon.min.css']
+title: About
+permalink: /about/
 ---
 
-{% include about.html %}
+<img src="{{ site.baseurl }}/assets/profile-placeholder.gif" title="Profile Picture" class="profile">
+
+Centrarium is a custom theme for Jekyll, made by [Ben Centra][bencentra] for his own blog. He'd be humbled if you liked it enough to use it as well! Installation and configuration instructions can be found in the [GitHub repository](https://github.com/bencentra/centrarium).
+
+This page is a good place to write about yourself, your project, your product, or whatever it is your site is for. You can replace the image above, or you can get rid of it entirely. 
+
+You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/). And you can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+
+[centrarium]: https://github.com/bencentra/centrarium
+[bencentra]: http://bencentra.com
+[jekyll]: https://github.com/jekyll/jekyll
