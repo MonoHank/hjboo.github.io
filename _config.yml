@@ -4,14 +4,14 @@ gems:
   - jekyll-sitemap
 
 # Site settings
-title: Ben Centra
-subtitle: "A blog about anything, but usually about web development."
-email: blcentra@gmail.com
-name: Ben Centra
+title: HJBoo Unity
+subtitle: "Sharing is a good habit."
+email: 651032800@qq.com
+name: HJBoo
 description: > 
   I'm Ben Centra, a web developer from Cambridge, MA.
 baseurl: "/" # the subpath of your site, e.g. /blog/
-url: "http://bencentra.com" # the base hostname & protocol for your site
+url: "http://www.hjboo.com" # the base hostname & protocol for your site
 cover: "assets/images/eegj_antwan.jpg"
 logo: "assets/images/logo/logo_180.png"
 
