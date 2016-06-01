@@ -1,17 +1,30 @@
 ---
 layout: page
-title: About
+title: About Me
 permalink: /about/
+main_nav: true
 ---
 
-<img src="{{ site.baseurl }}/assets/profile-placeholder.gif" title="Profile Picture" class="profile">
+<img src="{{ site.baseurl }}assets/images/avatar2.png" alt="Ben Centra" class="profile">
 
-Centrarium is a custom theme for Jekyll, made by [Ben Centra][bencentra] for his own blog. He'd be humbled if you liked it enough to use it as well! Installation and configuration instructions can be found in the [GitHub repository](https://github.com/bencentra/centrarium).
+Hello! I'm Ben Centra, a web developer from Cambridge, Massachusetts. I also dabble in homebrewing, music making, and indoor rock climbing.
 
-This page is a good place to write about yourself, your project, your product, or whatever it is your site is for. You can replace the image above, or you can get rid of it entirely. 
+I currently work at [Constant Contact][ctct] as a software engineer. After a year in the "Software Engineering Development Program" - rotating from team to team to learn new technologies and meet other developers - I landed on the Authoring team, which develops our next-generation campaign editor.
 
-You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/). And you can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+In 2014 I graduated from [Rochester Institute of Technology][rit] with a B.S. in New Media Interactive Development. I studied graphic design, animation (mostly 2D), game development, web development, mobile development, and more. I also received a Minor in Music & Technology, a combination of music theory, history, culture, and audio engineering.
 
-[centrarium]: https://github.com/bencentra/centrarium
-[bencentra]: http://bencentra.com
-[jekyll]: https://github.com/jekyll/jekyll
+Throughout college I was an active member of [Computer Science House][csh], a "Special Interest House" with a focus on, you guessed it, computers. I learned a ton while I was there, both through personal projects and just being in an atmosphere of learning and (more importantly) doing.
+
+### Want to Hire Me?
+
+I'm not currently seeking employment, but I'm glad you're interested in me! 
+
+You can still [view my resume][resume] or connect with me on [LinkedIn][linkedin].
+
+[ctct]: http://www.constantcontact.com/
+[rit]: http://rit.edu
+[csh]: http://csh.rit.edu
+[twitter]: https://twitter.com/TheBenCentra
+[linkedin]: https://www.linkedin.com/pub/ben-centra/47/769/60a
+[github]: https://github.com/bencentra
+[resume]: http://bencentra.com/assets/resume_general.pdf

@@ -1,0 +1,33 @@
+---
+layout: page
+title: "Projects"
+permalink: /projects/
+published: true
+main_nav: true
+---
+
+<p>I've always enjoyed learning by doing. Hands-on work provides a greater excitement about, and a better understanding of, the subject matter. Throughout college I worked many awesome things, both in and out of class, and I still have some pet projects to keep me busy after work.</p>
+
+<h2>Big Ones:</h2>
+
+{% for page in site.pages %}
+  {% if page.project %}
+    <p>
+      <strong>
+        <a href="{{ page.permalink | remove_first: '/' | prepend: site.baseurl }}">{{ page.title }}</a> - 
+      </strong>
+      {{ page.project_description }} <span class="gray">- {{ page.project_date }}</span>
+    </p>
+  {% endif %}
+{% endfor %}
+
+<h2>Small Stuff:</h2>
+
+{% for post in site.tags.projects %}
+<p>
+  <strong>
+    <a href="{{ post.url }}">{{ post.title }}</a>
+  </strong>
+</p>
+{% endfor %}
+
