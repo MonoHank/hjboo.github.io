@@ -5,7 +5,7 @@ permalink: /about/
 main_nav: true
 ---
 
-<img src="{{ site.baseurl }}assets/images/avatar2.png" alt="Ben Centra" class="profile">
+<img src="{{ site.baseurl }}assets/images/Personal imagejpg" alt="hjboo" class="profile">
 
 Hello! I'm Ben Centra, a web developer from Cambridge, Massachusetts. I also dabble in homebrewing, music making, and indoor rock climbing.
 
@@ -15,16 +15,8 @@ In 2014 I graduated from [Rochester Institute of Technology][rit] with a B.S. in
 
 Throughout college I was an active member of [Computer Science House][csh], a "Special Interest House" with a focus on, you guessed it, computers. I learned a ton while I was there, both through personal projects and just being in an atmosphere of learning and (more importantly) doing.
 
-### Want to Hire Me?
 
-I'm not currently seeking employment, but I'm glad you're interested in me! 
+
+I'm not currently seeking employment, but I'm glad you're interested in me!
 
 You can still [view my resume][resume] or connect with me on [LinkedIn][linkedin].
-
-[ctct]: http://www.constantcontact.com/
-[rit]: http://rit.edu
-[csh]: http://csh.rit.edu
-[twitter]: https://twitter.com/TheBenCentra
-[linkedin]: https://www.linkedin.com/pub/ben-centra/47/769/60a
-[github]: https://github.com/bencentra
-[resume]: http://bencentra.com/assets/resume_general.pdf
