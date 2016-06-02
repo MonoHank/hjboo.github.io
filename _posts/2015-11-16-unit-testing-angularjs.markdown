@@ -7,398 +7,179 @@ date:   2015-11-16 20:00:00
 tags: unit testing angular javascript jasmine karma
 ---
 
-Over the last few years I've written several apps using [Angular][angular], but only after a project for work have I had to worry about [unit testing][whyunittest] them. Much like learning the framework itself, there are a number of techniques you need to pick up to be able to properly unit test an Angular app. Here are some common ones for testing controllers, services, and directives.
+# 欢迎使用 Cmd Markdown 编辑阅读器
 
-This post assumes the following:
+------
 
-* You're running AngularJS 1.3 or greater
-* You're using [Jasmine][jasmine] as your test framework
-* You're using [Karma][karma] as your test runner
-* You're familiar with the above three things
+我们理解您需要更便捷更高效的工具记录思想，整理笔记、知识，并将其中承载的价值传播给他人，**Cmd Markdown** 是我们给出的答案 —— 我们为记录思想和分享知识提供更专业的工具。 您可以使用 Cmd Markdown：
 
-### Demo App
+> * 整理知识，学习笔记
+> * 发布日记，杂文，所见所想
+> * 撰写发布技术文稿（代码支持）
+> * 撰写发布学术论文（LaTeX 公式支持）
 
-<img class="post-image-half" src="{{ site.url }}/assets/images/todont.png" alt="To-don't, an app for tracking things you shouldn't do">
+![cmd-markdown-logo](https://www.zybuluo.com/static/img/logo.png)
 
-In order to write about testing, I need something to test! So I whipped up a to-do list app called "To-Don't" that uses some common Angular features, including:
+除了您现在看到的这个 Cmd Markdown 在线版本，您还可以前往以下网址下载：
 
-* A controller `ListController` with the main application logic
-* A service `TodoService` for making HTTP calls to the backend 
-* A custom `ngEnter` directive to enhance DOM capabilities
+### [Windows/Mac/Linux 全平台客户端](https://www.zybuluo.com/cmd/)
 
-You can view the code [on GitHub][todont] or try out the [live demo][todont-live]. 
+> 请保留此份 Cmd Markdown 的欢迎稿兼使用说明，如需撰写新稿件，点击顶部工具栏右侧的 <i class="icon-file"></i> **新文稿** 或者使用快捷键 `Ctrl+Alt+N`。
 
-## Angular Mocks
+------
 
-The secret sauce to testing Angular apps is `angular-mocks`, a separate module not included in the main `angular.js` file. This is loaded in for unit tests only, as specified in the `files` section of `karma.conf.js`:
+## 什么是 Markdown
 
-{% highlight javascript %}
-// list of files / patterns to load in the browser
-files: [
-  // External libs
-  'http://code.jquery.com/jquery-2.1.4.min.js',
-  'http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js',
-  'http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-mocks.js', // secret sauce!
-  // Source
-  'src/js/app.js',
-  'src/js/ListController.js',
-  'src/js/TodoService.js',
-  'src/js/ngEnter.js',
-  // Tests
-  'test/spec/**/*-spec.js'
-],
-{% endhighlight %}
+Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：譬如您正在阅读的这份文档。它使用简单的符号标记不同的标题，分割不同的段落，**粗体** 或者 *斜体* 某些文字，更棒的是，它还可以
 
-`angular-mocks` will expose a number of objects and methods required for writing unit tests.
+### 1. 制作一份待办事宜 [Todo 列表](https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#13-待办事宜-todo-列表)
 
-### Module Creation
+- [ ] 支持以 PDF 格式导出文稿
+- [ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率
+- [x] 新增 Todo 列表功能
+- [x] 修复 LaTex 公式渲染问题
+- [x] 新增 LaTex 公式编号功能
 
-The `ToDont` module, representing the To-Don't Angular app, is initialized in `app.js` like this:
+### 2. 书写一个质能守恒公式[^LaTeX]
 
-{% highlight javascript %}
-var ToDont = angular.module('ToDont', []);
-{% endhighlight %}
+$$E=mc^2$$
 
-In the unit tests, the `ToDont` module is loaded in a Jasmine `beforeEach` block using the [`module` function][angular.mock.module]: 
+### 3. 高亮一段代码[^code]
 
-{% highlight javascript %}
-beforeEach(module('ToDont'));
-{% endhighlight %}
+```python
+@requires_authorization
+class SomeClass:
+    pass
 
-## Controllers
+if __name__ == '__main__':
+    # A comment
+    print 'hello world'
+```
 
-[Controllers][controllers] are where most of the application logic lives. To-Don't only has one controller, `ListController`, but your app might have one controller per route or page in your application.
+### 4. 高效绘制 [流程图](https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#7-流程图)
 
-### Initialization and Dependency Injection
+```flow
+st=>start: Start
+op=>operation: Your Operation
+cond=>condition: Yes or No?
+e=>end
 
-Angular uses [dependency injection][di] to provide dependencies to a component. For example, `ListController` is initialized with its dependencies using the `controller` method.
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
 
-In [ListController.js](https://github.com/bencentra/todont/blob/master/src/js/ListController.js):
-{% highlight javascript %}
-ToDont.controller('ListController', 
-  ['$scope', '$timeout', 'TodoService', function($scope, $timeout, TodoService) {
-
-    $scope.items = [];        // Array of to-do items
-    $scope.newItem = '';      // New item to add to the list
-    $scope.errorMsg = false;  // Error message
-
-    // Get a list of saved items
-    $scope.getItems = function() {
-      TodoService.get().then(
-        function(response) {
-          $scope.items = response.data.items;
-        },
-        function(error) {
-          $scope.errorMsg = error.error;
-        }
-      );
-    };
+### 5. 高效绘制 [序列图](https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#8-序列图)
 
-    // Other controller methods go here
+```seq
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+```
 
-  }]
-);
-{% endhighlight %}
+### 6. 绘制表格
 
-In the tests, the controller's dependencies must be injected manually. This is done with `angular-mock`'s `inject()` function. Below `ListController`'s dependencies are manually injected into the test and a test controller is created, complete with a test `$scope` object.
+| 项目        | 价格   |  数量  |
+| --------   | -----:  | :----:  |
+| 计算机     | \$1600 |   5     |
+| 手机        |   \$12   |   12   |
+| 管线        |    \$1    |  234  |
 
-In [ListController-spec.js](https://github.com/bencentra/todont/blob/master/test/spec/ListController-spec.js):
-{% highlight javascript %}
-describe('ListController', function() {
+### 7. 更详细语法说明
 
-  beforeEach(module('ToDont'));
-  
-  var TodoService, timeout, q, scope, controller;
-
-  beforeEach(inject(function($rootScope, $controller, $timeout, $q, _TodoService_) {
-    // Services
-    TodoService = _TodoService_; // _'s are automatically unwrapped
-    timeout = $timeout;
-    q = $q;
-    // Controller Setup
-    scope = $rootScope.$new();
-    controller = $controller('ListController', {
-        $scope: scope,
-        TodoService: TodoService
-    });
-  }));
-
-  // Tests that use 'controller'
-
-});
-{% endhighlight %}
-
-### Dealing with `$scope`
-
-Behavior is added to a controller by attaching properties and methods to the `$scope` object. When the app is running, actions such as method calls and changes to properties are handled by Angular's own event processing capabilities. In the unit tests, however, Angular must be explicitly told that these actions are occurring. This is done with the `$scope.$apply()` method.
-
-In [ListController-spec.js](https://github.com/bencentra/todont/blob/master/test/spec/ListController-spec.js):
-{% highlight javascript %}
-describe('initialization', function() {
-
-  it('initializes with proper $scope variables and methods', function() {
-    scope.$apply(); // Let Angular know some changes have happened (in this case, the scope is created)
-    expect(scope.items).toEqual([]);
-    expect(scope.newItem).toEqual('');
-    expect(scope.errorMsg).toEqual(false);
-  });
-
-});
-{% endhighlight %}
-
-`$scope.$apply()` can also be called with a function as a parameter. Code in the body of the function will be updated as if it were running in an Angular app.
-
-{% highlight javascript %}
-it('is a test', function() {
-  // Test stuff
-  scope.$apply(function() {
-    scope.getItems();
-  });
-  // More test stuff
-});
-{% endhighlight %}
-
-### Mocking Out Services
-
-Because any services will be tested separately, they can be replaced in the controller unit tests with mocks. `ListController` utilizes the `TodoService` to interact with the backend API, so that will be mocked out. Methods of `TodoService` can be spied on individually and given mock behavior specific to each test.
-
-In [ListController-spec.js](https://github.com/bencentra/todont/blob/master/test/spec/ListController-spec.js):
-{% highlight javascript %}
-describe('getItems()', function() {
-
-  it('successfully gets the list of items from the service', function() {
-    // Mock implementation of TodoService.get()
-    spyOn(TodoService, 'get').and.callFake(function() {
-      var deferred = q.defer();
-      deferred.resolve(testItems);
-      return deferred.promise;
-    });
-    // Perform an action
-    scope.$apply(function() {
-      scope.getItems();
-    });
-    // Run expectations
-    expect(TodoService.get).toHaveBeenCalled();
-    expect(scope.items.length).toBe(testItems.length);
-  });
-
-  // Don't forget the negative test case for failed actions!
-
-});
-{% endhighlight %}
-
-## Services
-
-[Services][services] are used to organize code into common functionality. In To-Don't, the `TodoService` contains all the logic for updating the to-do list and is consumed by `ListController`. In this case, `TodoService` is also responsible for making requests to the backend API using the built-in `$http` service. 
-
-### Initialization
-
-Initializing a service is similar to creating a controller, using the either the `service` or `factory` method ([there's a difference][factory-service-provider]) and injecting dependencies.
-
-In [TodoService.js](https://github.com/bencentra/todont/blob/master/src/js/TodoService.js):
-{% highlight javascript %}
-ToDont.service('TodoService', ['$http', '$q', 'Config', function($http, $q, Config) {
-  
-  // BaseURL for the API
-  this.baseUrl = Config.API_BASE_URL;
-
-  // Get the list of items
-  this.get = function() {
-    var deferred = $q.defer();
-    $http({
-      url: this.baseUrl,
-      method: "GET"
-    }).success(function(data) {
-      if (data.success === true) {
-        deferred.resolve(data);
-      }
-      else {
-        deferred.reject(data);
-      }
-    }).error(function(data) {
-      deferred.reject(data);
-    });
-    return deferred.promise;
-  };
-
-  // Other service methods go here
-
-}]);
-{% endhighlight %}
-
-In the tests the service instance is created using `inject`, similar to the controller tests.
-
-In [TodoService-spec.js](https://github.com/bencentra/todont/blob/master/test/spec/TodoService-spec.js):
-{% highlight javascript %}
-describe('TodoService', function() {
-
-  // Load the ToDont module
-  beforeEach(module('ToDont'));
-
-  var TodoService, httpBackend, q, testUrl, testItem, testItems;
-
-  beforeEach(inject(function(_TodoService_, $httpBackend, $q) {
-    testUrl = 'API_BASE_URL';
-    // Test data
-    testItem = {id:1,desc:'test item',complete:false};
-    testItems = [testItem];
-    // Service instance and dependencies
-    TodoService = _TodoService_;
-    httpBackend = $httpBackend;
-    q = $q;
-  }));
-
-  // Tests go here
-
-});
-{% endhighlight %}
-
-The `TodoService` instance is now ready to be tested.
-
-### Mocking HTTP Requests
-
-In the controller unit tests the focus was the controller logic, so the `TodoService` calls were mocked out. In the service unit tests the focus is the `TodoService` logic, so the HTTP calls it makes will need to be mocked out; the backend itself doesn't need to be tested (at least not here). 
-
-`angular-mocks` provides a mock implementation of [`$httpBackend`][httpbackend], acting like a Jasmine spy for HTTP requests. In the tests, `$httpBackend` is told to expect certain requests and respond to them as appropriate. Below is an example of testing a successful GET request.
-
-In [TodoService-spec.js](https://github.com/bencentra/todont/blob/master/test/spec/TodoService-spec.js):
-{% highlight javascript %}
-describe('get()', function() {
-
-  it('gets the list of todo items', function() {
-    var promise, response, result;
-    // Make the request and implement a fake success callback
-    promise = TodoService.get();
-    promise.then(function(data) {
-      result = data;
-    });
-    response = {
-      success: true,
-      data: {
-        items: testItems
-      }
-    };
-    httpBackend.expectGET(testUrl).respond(200, response); // Expect a GET request and send back a canned response
-    httpBackend.flush(); // Flush pending requests
-    expect(result).toEqual(response);
-    expect(result.data.items).toEqual(testItems);
-  });
-
-  // Don't forget to add negative test cases for failed requests!
-
-});
-{% endhighlight %}
-
-In between tests, make sure to clear `$httpBackend` to catch any unexpected results:
-
-{% highlight javascript %}
-afterEach(function() {
-  httpBackend.verifyNoOutstandingExpectation();
-  httpBackend.verifyNoOutstandingRequest();
-});
-{% endhighlight %}
-
-## Directives
-
-[Directives][directives] are Angular's way of teaching the DOM new tricks. To-Don't expands on the DOM's native capabilities with an [`ngEnter` directive][ngenter] that runs a callback function when the enter key is pressed within an input field. The directive is created using the `directive` function and returns a link function.
-
-In [ngEnter.js](https://github.com/bencentra/todont/blob/master/src/js/ngEnter.js):
-{% highlight javascript %}
-ToDont.directive('ngEnter', function() {
-  function (scope, element, attrs) {
-    element.bind('keydown keypress', function(e) {
-      if (e.which === 13) {
-        scope.$apply(function() {
-          scope.$eval(attrs.ngEnter);
-        });
-        e.preventDefault();
-      }
-    });
-  };
-});
-
-{% endhighlight %}
-
-Once a directive is defined, it is included in the HTML for the application:
-
-{% highlight html %}
-<p class="add">Add new: 
-  <input type="text" ng-model="newItem" ng-enter="addItem()" placeholder="New item">
-</p>
-{% endhighlight %}
-
-This binds the `addItem()` method of `ListController` as the callback when the enter key is pressed on the input. All the magic of linking and binding the callback is handled by Angular.
-
-### Creating the Test Fixture
-
-The directive can be tested by creating a fixture to interact with. The HTML will need to be compiled and registered with Angular manually using the `element()` method and `$compile` service.
-
-In [ngEnter-spec.js](https://github.com/bencentra/todont/blob/master/test/spec/ngEnter-spec.js):
-{% highlight javascript %}
-describe('ngEnter directive', function() {
-
-  beforeEach(module('ToDont'));
-
-  var testFixture = '<input type="text" ng-enter="enter()"/>',
-      scope, compile, element, compiled, event;
-
-  beforeEach(inject(function($rootScope, $compile) {
-    scope = $rootScope.$new();
-    compile = $compile;
-    // Create the test fixture
-    scope.enter = function() {};
-    spyOn(scope, 'enter');
-    element = angular.element(testFixture);
-    compiled = compile(element)(scope);
-    scope.$apply();
-  }));
-
-  // Tests go here
-
-});
-{% endhighlight %}
-
-The final `compiled` element can now be tested by simulating user interaction. The test below simulates the user pressing the enter key.
-
-In [ngEnter-spec.js](https://github.com/bencentra/todont/blob/master/test/spec/ngEnter-spec.js):
-{% highlight javascript %}
-it('should call scope.enter() on enter key press', function() {
-  event = $.Event('keypress', {which:13});
-  $(compiled).trigger(event);
-  scope.$apply();
-  expect(scope.enter).toHaveBeenCalled();
-});
-{% endhighlight %}
-
-## Resources
-
-There's much more to unit testing Angular apps than this post covers. Here are some materials for further reading:
-
-* [Angular Developer Guide: Unit Testing][angular-unit-testing]
-* [An Introduction To Unit Testing In AngularJS Applications][smashing-intro]
-* [Unit Testing in AngularJS: Services, Controllers & Providers][sitepoint-testing]
-* [Unit Testing Services in AngularJS for Fun and for Profit][unit-testing-services]
-* [Ben Lesh: Angular JS - Unit Testing - Services][benlesh-testing-services]
-
-_Don't forget to check out the source for To-Don't [on GitHub][todont] and try out the [live demo][todont-live]!_
-
-[whyunittest]: http://stackoverflow.com/questions/67299/is-unit-testing-worth-the-effort
-[angular]: https://angularjs.org/
-[jasmine]: http://jasmine.github.io/
-[karma]: http://karma-runner.github.io/0.13/index.html
-[todont]: https://github.com/bencentra/todont
-[todont-live]: http://bencentra.com/todont/
-[di]: https://docs.angularjs.org/guide/di
-[angular.mock.module]: https://docs.angularjs.org/api/ngMock/function/angular.mock.module
-[angular.scope]: https://docs.angularjs.org/guide/scope
-[factory-service-provider]: http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/
-[directives]: https://docs.angularjs.org/guide/directive
-[controllers]: https://docs.angularjs.org/guide/controller
-[services]: https://docs.angularjs.org/guide/services
-[httpbackend]: https://docs.angularjs.org/api/ngMock/service/$httpBackend
-[ngenter]: http://stackoverflow.com/questions/17470790/how-to-use-a-keypress-event-in-angularjs
-[angular-unit-testing]: https://docs.angularjs.org/guide/unit-testing
-[smashing-intro]: http://www.smashingmagazine.com/2014/10/introduction-to-unit-testing-in-angularjs/
-[sitepoint-testing]: http://www.sitepoint.com/unit-testing-angularjs-services-controllers-providers/
-[unit-testing-services]: http://nathanleclaire.com/blog/2014/04/12/unit-testing-services-in-angularjs-for-fun-and-for-profit/
-[benlesh-testing-services]: http://www.benlesh.com/2013/06/angular-js-unit-testing-services.html
+想要查看更详细的语法说明，可以参考我们准备的 [Cmd Markdown 简明语法手册][1]，进阶用户可以参考 [Cmd Markdown 高阶语法手册][2] 了解更多高级功能。
+
+总而言之，不同于其它 *所见即所得* 的编辑器：你只需使用键盘专注于书写文本内容，就可以生成印刷级的排版格式，省却在键盘和工具栏之间来回切换，调整内容和格式的麻烦。**Markdown 在流畅的书写和印刷级的阅读体验之间找到了平衡。** 目前它已经成为世界上最大的技术分享网站 GitHub 和 技术问答网站 StackOverFlow 的御用书写格式。
+
+---
+
+## 什么是 Cmd Markdown
+
+您可以使用很多工具书写 Markdown，但是 Cmd Markdown 是这个星球上我们已知的、最好的 Markdown 工具——没有之一 ：）因为深信文字的力量，所以我们和你一样，对流畅书写，分享思想和知识，以及阅读体验有极致的追求，我们把对于这些诉求的回应整合在 Cmd Markdown，并且一次，两次，三次，乃至无数次地提升这个工具的体验，最终将它演化成一个 **编辑/发布/阅读** Markdown 的在线平台——您可以在任何地方，任何系统/设备上管理这里的文字。
+
+### 1. 实时同步预览
+
+我们将 Cmd Markdown 的主界面一分为二，左边为**编辑区**，右边为**预览区**，在编辑区的操作会实时地渲染到预览区方便查看最终的版面效果，并且如果你在其中一个区拖动滚动条，我们有一个巧妙的算法把另一个区的滚动条同步到等价的位置，超酷！
+
+### 2. 编辑工具栏
+
+也许您还是一个 Markdown 语法的新手，在您完全熟悉它之前，我们在 **编辑区** 的顶部放置了一个如下图所示的工具栏，您可以使用鼠标在工具栏上调整格式，不过我们仍旧鼓励你使用键盘标记格式，提高书写的流畅度。
+
+![tool-editor](https://www.zybuluo.com/static/img/toolbar-editor.png)
+
+### 3. 编辑模式
+
+完全心无旁骛的方式编辑文字：点击 **编辑工具栏** 最右测的拉伸按钮或者按下 `Ctrl + M`，将 Cmd Markdown 切换到独立的编辑模式，这是一个极度简洁的写作环境，所有可能会引起分心的元素都已经被挪除，超清爽！
+
+### 4. 实时的云端文稿
+
+为了保障数据安全，Cmd Markdown 会将您每一次击键的内容保存至云端，同时在 **编辑工具栏** 的最右侧提示 `已保存` 的字样。无需担心浏览器崩溃，机器掉电或者地震，海啸——在编辑的过程中随时关闭浏览器或者机器，下一次回到 Cmd Markdown 的时候继续写作。
+
+### 5. 离线模式
+
+在网络环境不稳定的情况下记录文字一样很安全！在您写作的时候，如果电脑突然失去网络连接，Cmd Markdown 会智能切换至离线模式，将您后续键入的文字保存在本地，直到网络恢复再将他们传送至云端，即使在网络恢复前关闭浏览器或者电脑，一样没有问题，等到下次开启 Cmd Markdown 的时候，她会提醒您将离线保存的文字传送至云端。简而言之，我们尽最大的努力保障您文字的安全。
+
+### 6. 管理工具栏
+
+为了便于管理您的文稿，在 **预览区** 的顶部放置了如下所示的 **管理工具栏**：
+
+![tool-manager](https://www.zybuluo.com/static/img/toolbar-manager.jpg)
+
+通过管理工具栏可以：
+
+<i class="icon-share"></i> 发布：将当前的文稿生成固定链接，在网络上发布，分享
+<i class="icon-file"></i> 新建：开始撰写一篇新的文稿
+<i class="icon-trash"></i> 删除：删除当前的文稿
+<i class="icon-cloud"></i> 导出：将当前的文稿转化为 Markdown 文本或者 Html 格式，并导出到本地
+<i class="icon-reorder"></i> 列表：所有新增和过往的文稿都可以在这里查看、操作
+<i class="icon-pencil"></i> 模式：切换 普通/Vim/Emacs 编辑模式
+
+### 7. 阅读工具栏
+
+![tool-manager](https://www.zybuluo.com/static/img/toolbar-reader.jpg)
+
+通过 **预览区** 右上角的 **阅读工具栏**，可以查看当前文稿的目录并增强阅读体验。
+
+工具栏上的五个图标依次为：
+
+<i class="icon-list"></i> 目录：快速导航当前文稿的目录结构以跳转到感兴趣的段落
+<i class="icon-chevron-sign-left"></i> 视图：互换左边编辑区和右边预览区的位置
+<i class="icon-adjust"></i> 主题：内置了黑白两种模式的主题，试试 **黑色主题**，超炫！
+<i class="icon-desktop"></i> 阅读：心无旁骛的阅读模式提供超一流的阅读体验
+<i class="icon-fullscreen"></i> 全屏：简洁，简洁，再简洁，一个完全沉浸式的写作和阅读环境
+
+### 8. 阅读模式
+
+在 **阅读工具栏** 点击 <i class="icon-desktop"></i> 或者按下 `Ctrl+Alt+M` 随即进入独立的阅读模式界面，我们在版面渲染上的每一个细节：字体，字号，行间距，前背景色都倾注了大量的时间，努力提升阅读的体验和品质。
+
+### 9. 标签、分类和搜索
+
+在编辑区任意行首位置输入以下格式的文字可以标签当前文档：
+
+标签： 未分类
+
+标签以后的文稿在【文件列表】（Ctrl+Alt+F）里会按照标签分类，用户可以同时使用键盘或者鼠标浏览查看，或者在【文件列表】的搜索文本框内搜索标题关键字过滤文稿，如下图所示：
+
+![file-list](https://www.zybuluo.com/static/img/file-list.png)
+
+### 10. 文稿发布和分享
+
+在您使用 Cmd Markdown 记录，创作，整理，阅读文稿的同时，我们不仅希望它是一个有力的工具，更希望您的思想和知识通过这个平台，连同优质的阅读体验，将他们分享给有相同志趣的人，进而鼓励更多的人来到这里记录分享他们的思想和知识，尝试点击 <i class="icon-share"></i> (Ctrl+Alt+P) 发布这份文档给好友吧！
+
+------
+
+再一次感谢您花费时间阅读这份欢迎稿，点击 <i class="icon-file"></i> (Ctrl+Alt+N) 开始撰写新的文稿吧！祝您在这里记录、阅读、分享愉快！
+
+作者 [@ghosert][3]     
+2015 年 06月 15日    
+
+[^LaTeX]: 支持 **LaTeX** 编辑显示支持，例如：$\sum_{i=1}^n a_i=0$， 访问 [MathJax][4] 参考更多使用方法。
+
+[^code]: 代码高亮功能支持包括 Java, Python, JavaScript 在内的，**四十一**种主流编程语言。
+
+[1]: https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown
+[2]: https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#cmd-markdown-高阶语法手册
+[3]: http://weibo.com/ghosert
+[4]: http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
+
+
