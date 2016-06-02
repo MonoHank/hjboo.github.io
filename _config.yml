@@ -8,7 +8,7 @@ title: HJBoo Blog
 subtitle: "Sharing is a good habit."
 email: 651032800@qq.com
 name: Bob
-description: > 
+description: >
   I'm hjboo, a unity developer from china.
 baseurl: "/" # the subpath of your site, e.g. /blog/
 url: "http://www.hjboo.com" # the base hostname & protocol for your site
@@ -22,7 +22,7 @@ paginate_path: "/page:num/"
 
 # Archive settings (see https://github.com/jekyll/jekyll-archives/)
 jekyll-archives:
-  enabled: 
+  enabled:
     - categories
     - tags
   layout: 'archive'
@@ -52,9 +52,9 @@ descriptions:
 # Social settings are used in two places:
 # * In the footer, as links to your personal profiles
 # * After each blog post for sharing widgets
-# 
+#
 # Example:
-# 
+#
 # social:
 #   - name: Twitter                         # Name of the service
 #     icon: twitter                         # Font Awesome icon to use (minus fa- prefix)
@@ -77,7 +77,7 @@ social:
   - name: Facebook
     icon: facebook
     username: thebencentra
-    url: 
+    url:
     desc: Friend me on Facebook
     share_url: //www.facebook.com/sharer.php
     share_title: ?t=
@@ -85,8 +85,8 @@ social:
 
   - name: GitHub
     icon: github
-    username: bencentra
-    url: https://github.com/bencentra
+    username: hjboo
+    url: https://github.com/hjboo
     desc: Fork me on GitHub
     share_url:
     share_title:
@@ -103,8 +103,8 @@ social:
 
   - name: Google+
     icon: google-plus
-    username: 
-    url: 
+    username:
+    url:
     desc: Add me to your Circles
     share_url: //plus.google.com/share
     share_title: ?title=
@@ -112,74 +112,74 @@ social:
 
   - name: YouTube
     icon: youtube
-    username: 
-    url: 
+    username:
+    url:
     desc: Subscribe on YouTube
-    share_url: 
-    share_title: 
+    share_url:
+    share_title:
     share_link:
 
   - name: Instagram
     icon: instagram
-    username: 
-    url: 
+    username:
+    url:
     desc: Follow me on Instagram
-    share_url: 
-    share_title: 
+    share_url:
+    share_title:
     share_link:
 
   - name: Pinterest
     icon: pinterest
-    username: 
-    url: 
+    username:
+    url:
     desc: Follow me on Pinterest
-    share_url: 
-    share_title: 
+    share_url:
+    share_title:
     share_link:
 
   - name: SoundCloud
     icon: soundcloud
-    username: 
-    url: 
+    username:
+    url:
     desc: Follow me on SoundCloud
-    share_url: 
-    share_title: 
+    share_url:
+    share_title:
     share_link:
 
   - name: Tumblr
     icon: tumblr
-    username: 
-    url: 
+    username:
+    url:
     desc: Follow me on Tumblr
-    share_url: 
-    share_title: 
+    share_url:
+    share_title:
     share_link:
 
   - name: Steam
     icon: steam
-    username: 
-    url: 
+    username:
+    url:
     desc: Friend me on Steam
-    share_url: 
-    share_title: 
+    share_url:
+    share_title:
     share_link:
 
   - name: Dribbble
     icon: dribbble
-    username: 
-    url: 
+    username:
+    url:
     desc: Follow me on Dribble
 
   - name: Vimeo
     icon: vimeo-square
-    username: 
-    url: 
+    username:
+    url:
     desc: Follow me on Vimeo
 
   - name: Vine
     icon: vine
-    username: 
-    url: 
+    username:
+    url:
     desc: Follow me on Vine
 
 # Social sharing protocols
