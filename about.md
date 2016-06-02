@@ -8,14 +8,13 @@ main_nav: true
 ![hjboo logo](http://hjboo.github.io/assets/images/personal_image.jpg)
 
 ## 关于我：
-<<<<<<< HEAD
 
 网名：Bob
-=======
+
 网名：Bob
 
 微信：18201578682
->>>>>>> 55b4d4ab01c9a3bd582a328b0eaee7e3e5afb6a9
+
 
 目前是一个Unity开发者，从业将近4年，大学专业为“计算机应用技术”，什么汇编，C/C++，Java，C#等都学过，但钟爱C#。还没毕业的时候流行开发Android，IOS，但身边搞Unity的人不是很多，而且Unity的魅力令我无法自拔，从此我便踏进这个我深爱的行业。随着时间的推移，不再是单纯的技术开发者，这也是一个人成长的必然，但技术研发依然是我工作的大部分，现在研发的方向便是时下最火热的VR，VR给了我们太多想象的空间和创新的冲动……<br>
 
