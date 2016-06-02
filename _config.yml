@@ -4,12 +4,12 @@ gems:
   - jekyll-sitemap
 
 # Site settings
-title: HJBoo Unity
+title: HJBoo Blog
 subtitle: "Sharing is a good habit."
 email: 651032800@qq.com
 name: Bob
 description: > 
-  I'm Ben Centra, a web developer from Cambridge, MA.
+  I'm hjboo, a unity developer from china.
 baseurl: "/" # the subpath of your site, e.g. /blog/
 url: "http://www.hjboo.com" # the base hostname & protocol for your site
 cover: "assets/images/eegj_antwan.jpg"
