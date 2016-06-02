@@ -6,6 +6,7 @@ main_nav: true
 ---
 
 ![hjboo logo](http://hjboo.github.io/assets/images/personal_image.jpg)
+<div align="center">猫和老鼠象征着快乐的生活态度<div/>
 
 ## 关于我：
 
