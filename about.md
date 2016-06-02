@@ -21,4 +21,4 @@ main_nav: true
 一直就想写博客，一是分享自己平常积累的技术，再一个就是当作自己的笔记，确实我崇拜以及钦佩那些分享自己技术的人，这种行为是利人利己的。我稍微有点处女座，不太喜欢在第三方的平台写博客，感觉不够纯粹，所以我就想拥有一个自己的独立博客，所以在2015年一月份注册了www.hjboo.com这个域名，但一直事情比较多，加之被新浪SinaAppEngine(SAE)浪费了我很多感情，一度把这摊子事搁置了，直到16年我准备从此刻起认真经营我的博客！
 
 ## 我的微信：
-![webchat_code](http://www.hjboo.com/assets/images/webchat_code.jpg)
+![webchat_code{270x270}](http://www.hjboo.com/assets/images/webchat_code.jpg)
