@@ -9,7 +9,7 @@ subtitle: "Sharing is a good habit."
 email: 651032800@qq.com
 name: Bob
 description: >
-  I'm hjboo, a unity developer from china.
+  I'm Bob, a unity developer from china.
 baseurl: "/" # the subpath of your site, e.g. /blog/
 url: "http://www.hjboo.com" # the base hostname & protocol for your site
 cover: "assets/images/eegj_antwan.jpg"
