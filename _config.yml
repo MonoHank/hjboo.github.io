@@ -65,8 +65,8 @@ descriptions:
 #     share_title: ?text=                   # Title parameter for sharing URL
 #     share_link: "&amp;url="               # Link parameter for sharing URL
 social:
-  - name: Twitter
-    icon: twitter
+  - name: WeiXin
+    icon: WeiXin
     username: "@HJBoo"
     url: https://twitter.com/TheBenCentra
     desc: Follow me on Twitter
@@ -92,8 +92,8 @@ social:
     share_title:
     share_link:
 
-  - name: LinkedIn
-    icon: linkedin
+  - name: QQ
+    icon: qq
     username: QQ Zone
     url: http://i.qq.com/
     desc: Connect with me on LinkedIn
