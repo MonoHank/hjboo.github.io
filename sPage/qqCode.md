@@ -1,7 +1,7 @@
 ---
 layout: sPage
 title: QQ
-permalink: /qq/
+permalink: /about/
 main_nav: true
 ---
 
