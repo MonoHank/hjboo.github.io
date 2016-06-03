@@ -76,7 +76,7 @@ social:
 
   - name: GitHub
     icon: github
-    username: Bob
+    username: GitHub
     url: https://github.com/hjboo
     desc: Fork me on GitHub
     share_url:
