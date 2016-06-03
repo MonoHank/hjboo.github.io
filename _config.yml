@@ -6,10 +6,10 @@ gems:
 # Site settings
 title: HJBoo Blog
 subtitle: "Sharing is a good habit."
-email: 651032800@qq.com
+email: hjboo@qq.com
 name: Bob
 description: >
-  I'm Bob, a unity developer from china.
+  I'm bob, a unity developer from china.
 baseurl: "/" # the subpath of your site, e.g. /blog/
 url: "http://www.hjboo.com" # the base hostname & protocol for your site
 cover: "assets/images/eegj_antwan.jpg"
@@ -74,15 +74,6 @@ social:
     share_title: ?text=
     share_link: "&amp;url="
 
-  - name: Facebook
-    icon: facebook
-    username: thebencentra
-    url:
-    desc: Friend me on Facebook
-    share_url: //www.facebook.com/sharer.php
-    share_title: ?t=
-    share_link: "&amp;u="
-
   - name: GitHub
     icon: github
     username: Bob
@@ -100,87 +91,6 @@ social:
     share_url: //www.linkedin.com/shareArticle
     share_title: ?mini=true
     share_link: "&amp;url="
-
-  - name: Google+
-    icon: google-plus
-    username:
-    url:
-    desc: Add me to your Circles
-    share_url: //plus.google.com/share
-    share_title: ?title=
-    share_link: "&amp;url="
-
-  - name: YouTube
-    icon: youtube
-    username:
-    url:
-    desc: Subscribe on YouTube
-    share_url:
-    share_title:
-    share_link:
-
-  - name: Instagram
-    icon: instagram
-    username:
-    url:
-    desc: Follow me on Instagram
-    share_url:
-    share_title:
-    share_link:
-
-  - name: Pinterest
-    icon: pinterest
-    username:
-    url:
-    desc: Follow me on Pinterest
-    share_url:
-    share_title:
-    share_link:
-
-  - name: SoundCloud
-    icon: soundcloud
-    username:
-    url:
-    desc: Follow me on SoundCloud
-    share_url:
-    share_title:
-    share_link:
-
-  - name: Tumblr
-    icon: tumblr
-    username:
-    url:
-    desc: Follow me on Tumblr
-    share_url:
-    share_title:
-    share_link:
-
-  - name: Steam
-    icon: steam
-    username:
-    url:
-    desc: Friend me on Steam
-    share_url:
-    share_title:
-    share_link:
-
-  - name: Dribbble
-    icon: dribbble
-    username:
-    url:
-    desc: Follow me on Dribble
-
-  - name: Vimeo
-    icon: vimeo-square
-    username:
-    url:
-    desc: Follow me on Vimeo
-
-  - name: Vine
-    icon: vine
-    username:
-    url:
-    desc: Follow me on Vine
 
 # Social sharing protocols
 # These are for automatically generating sharing metadata for FB and Twitter
