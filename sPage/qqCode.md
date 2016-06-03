@@ -1,8 +1,8 @@
 ---
 layout: page
-title: About
-permalink: /about/
-main_nav: true
+title: QQ
+permalink: /qq/
+main_nav: false
 ---
 
 ![hjboo logo](http://hjboo.github.io/assets/images/personal_image.jpg)
