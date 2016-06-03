@@ -1,5 +1,5 @@
 ---
-layout: sPage
+layout: page
 title: QQ
 permalink: /qq/
 main_nav: false
