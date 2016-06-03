@@ -20,7 +20,7 @@ layout: default
       <a class="post-link" href="{{ post.url | remove_first: '/' | prepend: site.baseurl }}">{{ post.title }}</a>
     </h2>
     <section class="post-excerpt" itemprop="description">
-      <p>{% if post.content contains “ ” %} {{ post.content | split:” ” | first % }} {% else %} {{ post.content | truncatewords:50 }} {% endif %}</p>
+
     </section>
     <section class="post-meta">
     	<div class="post-date">{{ post.date | date: "%B %-d, %Y" }}</div>
