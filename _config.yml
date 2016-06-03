@@ -10,7 +10,7 @@ email: hjboo@qq.com
 name: Bob
 description: >
   I'm bob, a unity developer from china.
-baseurl: "/" # the subpath of your site, e.g. /blog/
+baseurl: "/hjboo.github.io" # the subpath of your site, e.g. /blog/
 url: "http://www.hjboo.com" # the base hostname & protocol for your site
 cover: "assets/images/eegj_antwan.jpg"
 logo: "assets/images/logo/logo_180.png"
