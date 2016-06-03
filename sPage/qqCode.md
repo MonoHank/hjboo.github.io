@@ -2,7 +2,7 @@
 layout: sPage
 title: QQ
 permalink: /qq/
-main_nav: true
+main_nav: false
 ---
 
 ![hjboo logo](http://hjboo.github.io/assets/images/personal_image.jpg)
