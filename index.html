@@ -53,7 +53,7 @@ layout: default
 
 			  {% for page in (1..paginator.total_pages) %}
 			    {% if page == paginator.page %}
-			      <em>{{ page &nbsp;}}</em>
+			      <em  color="red">{{ page }} &nbsp;</em>
 			    {% elsif page == 1 %}
 			      <a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }} &nbsp;</a>
 			    {% else %}
