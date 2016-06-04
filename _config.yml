@@ -17,7 +17,7 @@ logo: "assets/images/logo/logo_180.png"
 
 # Build settings
 markdown: kramdown
-paginate: 5
+paginate: 1
 paginate_path: "/page:num/"
 
 # Archive settings (see https://github.com/jekyll/jekyll-archives/)
