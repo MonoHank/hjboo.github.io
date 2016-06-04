@@ -65,7 +65,11 @@ layout: default
 		<i class="fa fa-angle-double-left fa-stack-1x fa-inverse"></i>
 	</span>
 	{% endif %}
-    <span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    <span class="page-number">
+			Page {{ paginator.page }} of {{ paginator.total_pages }}
+			{% for page in paginator.total_pages %}
+				<a href="{{ site.baseurl }}page{{page}">
+		</span>
 		{% if paginator.next_page %}
 	    <a class="newer-posts" href="{{ site.baseurl }}page{{paginator.next_page}}">
 		    <span class="fa-stack fa-lg">
