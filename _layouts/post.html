@@ -33,14 +33,6 @@ layout: default
   {{ content }}
 </article>
 
-{% if site.jekyll-archives %}
-{% if page.tags.size > 0 %}
-<section class="tags">
-	<strong>Tags:</strong> {% for tag in page.tags %}<a href="{{ site.baseurl }}tag/{{ tag }}">{{ tag }}</a>{% if forloop.last == false %},&nbsp;{% endif %}{% endfor %}
-</section>
-{% endif %}
-{% endif %}
-
 <div class="ds-share flat" data-thread-key= {{ page.id }} data-title= {{ page.title }} data-content= {{ page.content | strip_html | truncate: 10}} data-url= "http://www.hjboo.com{{ page.url }}">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-32">
