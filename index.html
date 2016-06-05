@@ -28,7 +28,7 @@ layout: default
 	    	{% if post.categories %}in {% for cat in post.categories %}
 	    	  {% if site.jekyll-archives %}
 				    <!--<a href="{{ site.baseurl }}category/{{ cat }}">{{ cat | capitalize }}</a>{% if forloop.last == false %}, {% endif %}	-->
-						<a>{{ cat | capitalize }}</a>{% if forloop.last == false %}, {% endif %}
+						<a href="http://www.hjboo.com/posts/">{{ cat | capitalize }}</a>{% if forloop.last == false %}, {% endif %}
 	    	  {% else %}
 	    	  <span>{{ cat | capitalize }}</span>{% if forloop.last == false %}, {% endif %}
 	    	  {% endif %}
