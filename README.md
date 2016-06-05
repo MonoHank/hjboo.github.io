@@ -1,7 +1,7 @@
 blog
 ====
 
-My website/blog. Made with [Jekyll](http://jekyllrb.com/). Uses my own [Centrarium](https://github.com/bencentra/centrarium) theme.
+My website/blog. Made with [Jekyll](http://jekyllrb.com/). Uses [Centrarium](https://github.com/bencentra/centrarium) theme.
 
 Check it out at [bencentra.com](http://bencentra.com/).
 
