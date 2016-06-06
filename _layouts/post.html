@@ -33,11 +33,8 @@ layout: default
   {{ content }}
 </article>
 
-<section class="link">
-	<strong>本文官网链:</strong> <a href=http://www.hjboo.com{{ page.url }}>HJBoo Blog {{ page.title }}</a>
-</section>
 <section class="reprint">
-	<strong>转载请注明:</strong> <a href=http://www.hjboo.com>发表于 HJBoo Blog</a>
+	<strong>转载请注明:</strong> <a href=http://www.hjboo.com>发表于 HJBoo Blog {{ page.title }}</a>
 </section>
 
 <div class="ds-share flat" data-thread-key= {{ page.id }} data-title= {{ page.title }} data-content= {{ page.content | strip_html | truncate: 10}} data-url= "http://www.hjboo.com{{ page.url }}">
