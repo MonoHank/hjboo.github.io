@@ -4,7 +4,7 @@ title:  "UnityEvent源码分析（一）"
 categories: Unity.Event
 author: Bob
 date:   2016-06-09
-tags:	Unity,UnityEvent
+tags:	UnityEvent
 ---
 
 ## 前叙
