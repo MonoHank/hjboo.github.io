@@ -8,11 +8,11 @@ tags:	UnityEvent
 ---
 
 通过上篇博客可知代码AddListener的方式实质为封装的C#的委托，详见[UnityEvent源码分析（一）](http://www.hjboo.com/code/2016/06/08/source-code-analysis1.html)，这边分析一下可视化的注册方式，此种实现方式比较复杂，Inspector效果如下：
-![](http://www.hjboo.com/assets/images/UnityEvent1.jpg)
+<img src="http://www.hjboo.com/assets/images/UnityEvent1.jpg" alt="webchat_code" class="profile">
 
 Debug模式下的效果如下：
 
-![](http://www.hjboo.com/assets/images/UnityEvent2.jpg)
+<img src="http://www.hjboo.com/assets/images/UnityEvent2.jpg" alt="webchat_code" class="profile">
 
 在Debug模式下可以看出里面主要参数为PersistentCalls这个字段名，从源码可知其对应的类是PersistentCallGroup，其内定义了一个集合：List<PersistentCall> m_Calls = new List<PersistentCall>();，从图中也可看出就是Calls,里面有包含的重要信息，比如：目标物体，方法名，参数等，这些信息是通过反射赋值的，那是不是就能肯定此种UnityEvent的原理就是反射呢？答案是不完全对！你想一下此时的反射仅仅是在编辑器中执行的，它的作用有两个，一是方法可视化，二是赋值必要信息。
 
