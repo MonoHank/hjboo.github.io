@@ -8,7 +8,7 @@ tags:	UnityEvent
 ---
 
 通过上篇博客可知代码AddListener的方式实质为封装的C#的委托，详见[UnityEvent源码分析（一）](http://www.hjboo.com/code/2016/06/08/source-code-analysis1.html)，这边分析一下可视化的注册方式，此种实现方式比较复杂，Inspector效果如下：
-<img src="http://www.hjboo.com/assets/images/UnityEvent1.jpg" alt="webchat_code" class="profile">
+<img src="http://www.hjboo.com/assets/images/UnityEvent1.jpg" width = "384" height = "124" alt="webchat_code" class="profile">
 
 Debug模式下的效果如下：
 
@@ -23,4 +23,4 @@ Debug模式下的效果如下：
 NGUI的回调事件的源码当初大体也浏览过，其实现原理和这种方式也大同小异。但可能会有这样的疑问，那是不是代码AddListener方式要比可视化的方式要快呢，理论上是要快的，但实测差异是在一个数量级的，几乎看不出来谁更快。
 
 ## 结论
-可视化方式的UnityEvent原理是优化过后的反射，其速度与[第一种方式](http://www.hjboo.com/code/2016/06/08/source-code-analysis1.html)差不多。反射是个好东西，好多框架里都离不开反射，它非常灵活，解耦，只要好好驾驭，就可以放心的使用！
+可视化方式的UnityEvent原理是反射与委托结合使用。其速度与[第一种方式](http://www.hjboo.com/code/2016/06/08/source-code-analysis1.html)差不多。反射是个好东西，好多框架里都离不开反射，它非常灵活，解耦，只要好好驾驭，就可以放心的使用！
