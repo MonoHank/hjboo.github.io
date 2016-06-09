@@ -19,19 +19,20 @@ tags:	UnityEvent
 
 首先看一下UnityAction是个什么鬼，源码如下：
 
-``` javascript
+{% highlight javascript %}
 namespace UnityEngine.Events
 {
     public delegate void UnityAction();
 }
-```
+{% endhighlight %}
+
 仅仅封装了一个委托而已，然后UnityAction可以通过GetDelegate方法实现UnityAction与InvokableCall（BaseInvokableCall的子类）相互转化，最终执行到InvokableCallList.AddListener（），这个InvokableCallList里面封装的说白了就是委托的集合。
 
 由此可看出其本质就是C#的委托，和反射没有关系，但是其注册方式不是原生的C#委托，是将委托放在List里面了，这也例证了UnityEvent不支持“+=”的简写方式。
 
 ## 方法执行
 执行步骤的入口为：UnityEvent.Invoke(),剩下的步骤我就不啰嗦了，最终执行的还是委托，代码详见InvokableCall类：
-``` javascript
+{% highlight javascript %}
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -63,7 +64,7 @@ internal class InvokableCall : BaseInvokableCall
         }
     }
 }
-```
+{% endhighlight %}
 
 ## 结论
 通过代码AddListener是C#委托的封装，没有用到反射。至于他与C#原生Event的性能比较[点这里](http://mp.weixin.qq.com/s?__biz=MjM5NjE1MTkwMg==&mid=2651037162&idx=1&sn=2a3ccb3ba813521f04034438e512ad34&scene=1&srcid=0525taR6jPSURJYWxp5KRwDw#wechat_redirect)
