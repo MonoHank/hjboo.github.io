@@ -28,7 +28,71 @@ namespace UnityEngine.Events
 
 仅仅封装了一个委托而已，然后UnityAction可以通过GetDelegate方法实现UnityAction与InvokableCall（BaseInvokableCall的子类）相互转化，最终执行到InvokableCallList.AddListener（），这个InvokableCallList里面封装的说白了就是委托的集合。
 
-由此可看出其本质就是C#的委托，和反射没有关系，但是其注册方式不是原生的C#委托，是将委托放在List里面了，这也例证了UnityEvent不支持“+=”的简写方式。
+由此可看出其本质就是C#的委托，和反射没有关系，但是其注册方式不是原生的C#委托，是将委托放在List里面了，所有的Add，Remove等都是操作的List集合，这也例证了UnityEvent不支持“+=”的简写方式，代码详见InvokableCallList类：
+```cpp
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+
+internal class InvokableCallList
+{
+    readonly List<BaseInvokableCall> m_ExecutingCalls = new List<BaseInvokableCall>();
+    readonly List<BaseInvokableCall> m_PersistentCalls = new List<BaseInvokableCall>();
+    readonly List<BaseInvokableCall> m_RuntimeCalls = new List<BaseInvokableCall>();
+
+    public void AddListener(BaseInvokableCall call)
+    {
+        m_RuntimeCalls.Add(call);
+    }
+
+    public void AddPersistentInvokableCall(BaseInvokableCall call)
+    {
+        m_PersistentCalls.Add(call);
+    }
+
+    public void Clear()
+    {
+        m_RuntimeCalls.Clear();
+    }
+
+    public void ClearPersistent()
+    {
+        m_PersistentCalls.Clear();
+    }
+
+    public void Invoke(object[] parameters)
+    {
+        m_ExecutingCalls.AddRange(m_PersistentCalls);
+        m_ExecutingCalls.AddRange(m_RuntimeCalls);
+        for (int i = 0; i < m_ExecutingCalls.Count; i++)
+        {
+            m_ExecutingCalls[i].Invoke(parameters);
+        }
+        m_ExecutingCalls.Clear();
+    }
+
+    public void RemoveListener(object targetObj, MethodInfo method)
+    {
+        List<BaseInvokableCall> list = new List<BaseInvokableCall>();
+        for (int i = 0; i < m_RuntimeCalls.Count; i++)
+        {
+            if (m_RuntimeCalls[i].Find(targetObj, method))
+            {
+                list.Add(m_RuntimeCalls[i]);
+            }
+        }
+        m_RuntimeCalls.RemoveAll(new Predicate<BaseInvokableCall>(list.Contains));
+    }
+
+    public int Count
+    {
+        get
+        {
+            return (m_PersistentCalls.Count + m_RuntimeCalls.Count);
+        }
+    }
+}
+```
 
 ## 方法执行
 执行步骤的入口为：UnityEvent.Invoke(),剩下的步骤我就不啰嗦了，最终执行的还是委托，代码详见InvokableCall类：
