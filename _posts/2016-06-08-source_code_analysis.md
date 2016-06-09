@@ -32,7 +32,8 @@ namespace UnityEngine.Events
 
 ## 方法执行
 执行步骤的入口为：UnityEvent.Invoke(),剩下的步骤我就不啰嗦了，最终执行的还是委托，代码详见InvokableCall类：
-{% highlight javascript %}
+
+```javascript
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -64,7 +65,7 @@ internal class InvokableCall : BaseInvokableCall
         }
     }
 }
-{% endhighlight %}
+```
 
 ## 结论
 通过代码AddListener是C#委托的封装，没有用到反射。至于他与C#原生Event的性能比较[点这里](http://mp.weixin.qq.com/s?__biz=MjM5NjE1MTkwMg==&mid=2651037162&idx=1&sn=2a3ccb3ba813521f04034438e512ad34&scene=1&srcid=0525taR6jPSURJYWxp5KRwDw#wechat_redirect)
