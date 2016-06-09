@@ -15,7 +15,7 @@ tags:	UnityEvent
 
 Debug模式下的效果如下：
 
-<a href="/assets/images/UnityEvent1.jpg" data-lightbox="pebbletime" >
+<a href="/assets/images/UnityEvent2.jpg" data-lightbox="pebbletime" >
   <img src="/assets/images/UnityEvent2.jpg"  class="post-image-half" />
 </a>
 
