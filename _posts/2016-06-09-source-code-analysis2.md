@@ -23,7 +23,7 @@ Debug模式下的效果如下：
 
 当我们编辑中选中一个方法后，m_Calls就会被赋值，里面包含方法名等有用信息，当满足执行条件是他会执行Invoke方法，它的执行步骤大致是： 首先MethodInfo method = type.GetMethod(string name, BindingFlags bindingAttr, Binder binder, Type[] types, ParameterModifier[] modifiers);，这样就得到了MethodInfo method；然后通过Delegate.CreateDelegate(Type type, object firstArgument, MethodInfo method)方法我们得到了一个委托。截止到这里总结为：编辑器里反射出方法名等信息，运行时将字符串的方法名转化成委托，然后执行委托。
 
-说以这种方式的UnityEvent是一个优化的过的反射，其执行速度是大大优于单纯反射执行的，为什么这样优化后执行速度就会快呢，首先我们要分析一下反射慢的原因：System.Reflection.RuntimeMethodInfo.Invoke 方法，它首先需要检查参数（检查默认参数、类型转换之类的），然后检查各种 Flags，然后再调用 UnsafeInvokeInternal 完成真正的调用过程，显然这是很浪费时间的，而把它构造成委托之后就避免这个问题，当然这比直接调用还是要慢的，但除非常在特殊情况下，否则你是察觉不到的。
+所以说这种方式的UnityEvent是一个优化的过的反射，其执行速度是大大优于单纯反射执行的，为什么这样优化后执行速度就会快呢，首先我们要分析一下反射慢的原因：System.Reflection.RuntimeMethodInfo.Invoke 方法，它首先需要检查参数（检查默认参数、类型转换之类的），然后检查各种 Flags，然后再调用 UnsafeInvokeInternal 完成真正的调用过程，显然这是很浪费时间的，而把它构造成委托之后就避免这个问题，当然这比直接调用还是要慢的，但除非常在特殊情况下，否则你是察觉不到的。
 
 NGUI的回调事件的源码当初大体也浏览过，其实现原理和这种方式也大同小异。但可能会有这样的疑问，那是不是代码AddListener方式要比可视化的方式要快呢，理论上是要快的，但实测差异是在一个数量级的，几乎看不出来谁更快。
 
