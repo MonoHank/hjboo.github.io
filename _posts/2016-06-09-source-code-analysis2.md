@@ -11,10 +11,11 @@ tags:	UnityEvent
 
 <img src="http://www.hjboo.com/assets/images/UnityEvent1.jpg" width = "384" height = "124">
 
-<a href="/assets/images/UnityEvent1.jpg" data-lightbox="pebbletime" >
-	<img src="/assets/images/UnityEvent1.jpg" align="left" class="post-image-half" />
-</a>
-
+<div align="left">
+  <a href="/assets/images/UnityEvent1.jpg" data-lightbox="pebbletime" >
+  	<img src="/assets/images/UnityEvent1.jpg" class="post-image-half" />
+  </a>
+</div>
 Debug模式下的效果如下：
 
 <img src="http://www.hjboo.com/assets/images/UnityEvent2.jpg" width = "384" height = "295">
