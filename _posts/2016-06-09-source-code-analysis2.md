@@ -11,7 +11,7 @@ tags:	UnityEvent
 
 <img src="http://www.hjboo.com/assets/images/UnityEvent1.jpg" width = "384" height = "124">
 
-<a align="left">
+<a>
 	<img src="/assets/images/UnityEvent1.jpg"/>
 </a>
 
