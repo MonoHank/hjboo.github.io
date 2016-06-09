@@ -11,7 +11,7 @@ tags:	UnityEvent
 
 <img src="http://www.hjboo.com/assets/images/UnityEvent1.jpg" width = "384" height = "124">
 
-<a href="/assets/images/UnityEvent1.jpg" data-lightbox="pebbletime">
+<a href="/assets/images/UnityEvent1.jpg" data-lightbox="pebbletime" align="left">
 	<img src="/assets/images/UnityEvent1.jpg" class="post-image-half"/>
 </a>
 
