@@ -33,7 +33,7 @@ namespace UnityEngine.Events
 ## 方法执行
 执行步骤的入口为：UnityEvent.Invoke(),剩下的步骤我就不啰嗦了，最终执行的还是委托，代码详见InvokableCall类：
 
-{% highlight C# %}
+{% highlight c %}
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
