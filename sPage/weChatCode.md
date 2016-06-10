@@ -6,4 +6,6 @@ main_nav: false
 ---
 
 ## 我的微信：
-<img src="http://www.hjboo.com/assets/images/webchat_code.jpg" alt="webchat_code" class="profile" align="center">
+<a href="/assets/images/webchat_code.jpg" data-lightbox="pebbletime" >
+	<img src="/assets/images/webchat_code.jpg" class="post-image-half" />
+</a>

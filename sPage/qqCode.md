@@ -6,4 +6,7 @@ main_nav: false
 ---
 
 ## 我的QQ（不常用）：
-<img src="http://www.hjboo.com/assets/images/qq_code.jpg" alt="webchat_code" class="profile" align="center">
+
+<a href="/assets/images/qq_code.jpg" data-lightbox="pebbletime" >
+	<img src="/assets/images/qq_code.jpg" class="post-image-half" />
+</a>
